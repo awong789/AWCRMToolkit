@@ -35,6 +35,9 @@
     <Reference Include="antixsslibrary">
       <HintPath>..\packages\MSDCRM2011SDK.1.0.0.10\lib\net45\antixsslibrary.dll</HintPath>
     </Reference>
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="microsoft.crm.outlook.sdk">
       <HintPath>..\packages\MSDCRM2011SDK.1.0.0.10\lib\net45\microsoft.crm.outlook.sdk.dll</HintPath>
     </Reference>

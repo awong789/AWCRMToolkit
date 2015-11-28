@@ -1,4 +1,6 @@
-﻿using Microsoft.Crm.Sdk.Messages;
+﻿using CommandLine;
+using CommandLine.Text;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Crm.Sdk.Samples;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
@@ -20,26 +22,47 @@ namespace AWCRMDevTools
         private Guid _accountId;
         static void Main(string[] args)
         {
-            //foreach (string arg in args)
-            //{
-            //    switch (arg)
-            //    {
-            //        case 1:
-            //            Console.WriteLine("Case 1");
-            //            break;
-            //        case 2:
-            //            Console.WriteLine("Case 2");
-            //            break;
-            //        default:
-            //            Console.WriteLine("Default case");
-            //            break;
-            //    }
-            //}
+           
             ServerConnection serverConnect = new ServerConnection();
             ServerConnection.Configuration config = serverConnect.GetServerConfiguration();
-            ExportSolution app = new ExportSolution();
-            app.Run(config, false, "C:\\CRMexports", "CDSamples");
+            var options = new Options();
+            if (CommandLine.Parser.Default.ParseArguments(args, options))
+            {
+                // Values are available here
+                if (!string.IsNullOrEmpty(options.ExportPackageLocation)
+                    && !string.IsNullOrEmpty(options.SolutionName))
+                {
+                    ExportSolution app = new ExportSolution();
+                    app.Run(config, false, options.ExportPackageLocation, options.SolutionName);
+                } 
+            }
         }
-
     }
+
+    // Define a class to receive parsed values
+    class Options
+    {
+        [Option('i', "import", Required = true,
+          HelpText = "Path to package to be imported.")]
+        public string ImportPackageLocation { get; set; }
+
+        [Option('e', "export", DefaultValue = true,
+          HelpText = "Location of exported package.")]
+        public string ExportPackageLocation { get; set; }
+
+        [Option('s', "solutionname", DefaultValue = true,
+            HelpText = "Name of solution in CRM")]
+        public string SolutionName { get; set; }
+
+        [ParserState]
+        public IParserState LastParserState { get; set; }
+
+        [HelpOption]
+        public string GetUsage()
+        {
+            return HelpText.AutoBuild(this,
+              (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
+        }
+    }
+
 }
