@@ -78,6 +78,7 @@
       <HintPath>..\packages\MSDCRM2011SDK.1.0.0.10\lib\net45\pluginprofiler.plugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Runtime.Serialization" />
@@ -93,8 +94,10 @@
   <ItemGroup>
     <Compile Include="ExportSolution.cs" />
     <Compile Include="helper\authenticatewithnohelp.cs" />
+    <Compile Include="helper\CrmConfigurationSection.cs" />
     <Compile Include="helper\crmservicehelpers.cs" />
     <Compile Include="helper\deviceidmanager.cs" />
+    <Compile Include="ImportSolution.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
